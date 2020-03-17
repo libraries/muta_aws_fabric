@@ -8,6 +8,7 @@ import misc
 
 
 def muta_config():
+    interval = misc.recv_int_from_stdin("interval", 3000)
     poolsize = misc.recv_int_from_stdin("poolsize", 200000)
     timeout_gap = misc.recv_int_from_stdin("timeout_gap", 999999)
     cycles_limit = misc.recv_int_from_stdin("cycles_limit", 630000000)
@@ -33,6 +34,7 @@ def muta_config():
     payload["timeout_gap"] = timeout_gap
     payload["cycles_limit"] = cycles_limit
     payload["tx_num_limit"] = tx_num_limit
+    payload["interval"] = interval
     payload["verifier_list"] = []
 
     for i in range(len(convention.aws_ip_node_list)):
