@@ -1,13 +1,30 @@
 import copy
-import json
+import os
 import subprocess
+
+import json
 import toml
 
+import aws_pool
 import convention
 import misc
 
 
-def muta_config():
+def build_binary():
+    with misc.chdir(convention.muta_path):
+        misc.call("cargo build --release --example muta-chain")
+        with misc.chdir("./devtools/keypair"):
+            misc.call("cargo build --release")
+
+    misc.call("rm -rf build")
+    misc.call("mkdir -p build")
+    a = os.path.join(convention.muta_path, "target/release/examples/muta-chain")
+    misc.call(f"cp {a} ./build")
+    a = os.path.join(convention.muta_path, "target/release/muta-keypair")
+    misc.call(f"cp {a} ./build")
+
+
+def build_config():
     interval = misc.recv_int_from_stdin("interval", 3000)
     poolsize = misc.recv_int_from_stdin("poolsize", 200000)
     timeout_gap = misc.recv_int_from_stdin("timeout_gap", 999999)
@@ -67,3 +84,29 @@ def muta_config():
 
         with open(f"./build/config_{i+1}.toml", "w") as f:
             toml.dump(node_config, f)
+
+
+def deploy_binary():
+    aws_pool.make_pool()
+    misc.call("python3 -m zipfile -c build.zip build")
+    remote_kill()
+    aws_pool.pool.run(f"rm -rf build build.zip")
+    for e in aws_pool.pool:
+        print(f"{e.host} upload build.zip")
+        e.put("build.zip", "build.zip")
+    aws_pool.pool.run("python3 -m zipfile -e build.zip . && cd build && chmod +x muta-chain")
+
+
+def remote_kill():
+    aws_pool.make_pool()
+    aws_pool.pool.run("killall -9 muta-chain | true")
+
+
+def remote_run():
+    aws_pool.make_pool()
+    aws_pool.pool.run("killall -9 muta-chain | true")
+    aws_pool.pool.run(f"rm -rf {convention.muta_data_path}")
+    for i, e in enumerate(aws_pool.pool):
+        print(f"{e.host} start muta-chain")
+        e.run(
+            f"cd build && (CONFIG=config_{i+1}.toml GENESIS=genesis.toml nohup ./muta-chain >& log < /dev/null &) && sleep 1")

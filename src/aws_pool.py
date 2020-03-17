@@ -14,3 +14,13 @@ def make_pool():
         "key_filename": convention.aws_id_rsa,
     })
     pool.run("echo Welcome!")
+
+
+def bash():
+    make_pool()
+    for _ in range(1 << 32):
+        s = input("> ")
+        try:
+            pool.run(s)
+        except fabric.exceptions.GroupException as e:
+            print(e)

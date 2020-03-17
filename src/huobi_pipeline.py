@@ -1,13 +1,30 @@
 import copy
-import json
+import os
 import subprocess
+
+import json
 import toml
 
+import aws_pool
 import convention
 import misc
 
 
-def huobi_config():
+def build_binary():
+    with misc.chdir(convention.huobi_path):
+        misc.call("cargo build --release")
+    with misc.chdir(os.path.join(convention.muta_path, "./devtools/keypair")):
+        misc.call("cargo build --release")
+
+    misc.call("rm -rf build")
+    misc.call("mkdir -p build")
+    a = os.path.join(convention.muta_path, "target/release/muta-keypair")
+    misc.call(f"cp {a} ./build")
+    a = os.path.join(convention.huobi_path, "target/release/huobi-chain")
+    misc.call(f"cp {a} ./build")
+
+
+def build_config():
     interval = misc.recv_int_from_stdin("interval", 3000)
     poolsize = misc.recv_int_from_stdin("poolsize", 200000)
     timeout_gap = misc.recv_int_from_stdin("timeout_gap", 999999)
@@ -67,3 +84,29 @@ def huobi_config():
 
         with open(f"./build/config_{i+1}.toml", "w") as f:
             toml.dump(node_config, f)
+
+
+def deploy_binary():
+    aws_pool.make_pool()
+    misc.call("python3 -m zipfile -c build.zip build")
+    remote_kill()
+    aws_pool.pool.run(f"rm -rf build build.zip")
+    for e in aws_pool.pool:
+        print(f"{e.host} upload build.zip")
+        e.put("build.zip", "build.zip")
+    aws_pool.pool.run("python3 -m zipfile -e build.zip . && cd build && chmod +x huobi-chain")
+
+
+def remote_kill():
+    aws_pool.make_pool()
+    aws_pool.pool.run("killall -9 huobi-chain | true")
+
+
+def remote_run():
+    aws_pool.make_pool()
+    remote_kill()
+    aws_pool.pool.run(f"rm -rf {convention.muta_data_path}")
+    for i, e in enumerate(aws_pool.pool):
+        print(f"{e.host} start huobi-chain")
+        e.run(
+            f"cd build && (nohup ./huobi-chain -c config_{i+1}.toml -g genesis.toml >& log < /dev/null &) && sleep 1")
