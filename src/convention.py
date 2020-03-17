@@ -29,3 +29,6 @@ muta_data_path = "/tmp/muta"
 muta_logs_path = os.path.join(muta_data_path, "logs")
 muta_api_port = 8000
 muta_p2p_port = 1337
+huobi_path = "/src/huobi-chain"
+huobi_genesis_template_path = os.path.join(huobi_path, "config", "genesis.toml")
+huobi_config_template_path = os.path.join(huobi_path, "config", "chain.toml")
