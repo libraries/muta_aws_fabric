@@ -6,7 +6,7 @@ import toml
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config", default="./res/config.toml", help="path of config file")
-parser.add_argument("step", nargs="+", help="step name to run")
+parser.add_argument("step", nargs="*", help="step name to run")
 args = parser.parse_args()
 
 with open(args.config, "r") as f:
@@ -29,3 +29,6 @@ muta_data_path = "/tmp/muta"
 muta_logs_path = os.path.join(muta_data_path, "logs")
 muta_api_port = 8000
 muta_p2p_port = 1337
+huobi_path = "/src/huobi-chain"
+huobi_genesis_template_path = os.path.join(huobi_path, "config", "genesis.toml")
+huobi_config_template_path = os.path.join(huobi_path, "config", "chain.toml")
