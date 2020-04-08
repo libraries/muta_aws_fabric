@@ -1,7 +1,8 @@
-import convention
 import aws_pool
+import convention
 import huobi_pipeline
 import muta_pipeline
+import telnet
 
 
 def main():
@@ -42,6 +43,13 @@ def main():
             muta_pipeline.build_config()
             muta_pipeline.deploy_binary()
             muta_pipeline.remote_run()
+
+        if e == "telnet_deploy":
+            telnet.deploy_binary()
+        if e == "telnet_server_kill":
+            telnet.remote_kill()
+        if e == "telnet_server_run":
+            telnet.remote_run()
 
         if e == "aws_bash":
             aws_pool.bash()

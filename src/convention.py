@@ -6,7 +6,7 @@ import toml
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config", default="./res/config.toml", help="path of config file")
-parser.add_argument("step", nargs="+", help="step name to run")
+parser.add_argument("step", nargs="*", help="step name to run")
 args = parser.parse_args()
 
 with open(args.config, "r") as f:

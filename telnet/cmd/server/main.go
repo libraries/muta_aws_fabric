@@ -13,6 +13,7 @@ var (
 )
 
 func main() {
+	flag.Parse()
 	l, err := net.Listen("tcp", *flListen)
 	if err != nil {
 		log.Fatalln(err)

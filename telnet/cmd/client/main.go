@@ -14,6 +14,7 @@ var (
 )
 
 func main() {
+	flag.Parse()
 	from1 := time.Now()
 	conn, err := net.Dial("tcp", *flServer)
 	if err != nil {
