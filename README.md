@@ -1,8 +1,13 @@
-# Opus!
+# Muta aws fabric
 
 # Usage
 
-First of all, make sure there are `id_rsa`, `id_rsa.pub` in `./res`.
+```sh
+$ mkdir -p ./bin/develop
+$ cp ./res/config.toml ./bin/develop
+$ cp xxx/id_rsa ./bin/develop
+$ cp xxx/id_rsa.pub ./bin/develop
+```
 
 ```sh
 # deploy muta in one line
