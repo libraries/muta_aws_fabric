@@ -14,6 +14,7 @@ def chdir(wd):
 
 
 def call(text):
+    print(f'$ {text}')
     return subprocess.call(text, shell=True)
 
 

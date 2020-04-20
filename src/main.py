@@ -1,12 +1,17 @@
+import argparse
+
 import aws_pool
 import convention
 import huobi_pipeline
 import muta_pipeline
 import telnet
 
+parser = argparse.ArgumentParser()
+parser.add_argument("step", nargs="*", help="step name to run")
+args = parser.parse_args()
 
 def main():
-    for i, e in enumerate(convention.args.step):
+    for i, e in enumerate(args.step):
         print(f"[{i}] step {e}")
         if e == "huobi_build_binary":
             huobi_pipeline.build_binary()

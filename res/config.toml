@@ -1,17 +1,12 @@
-telegram_token = "1048105556:AAGb0yM4H3dktIbvt2da0y_vK75o10Tkzj8"
-telegram_chat_id = "-1001271302423"
+telegram_token = ""
+telegram_chat_id = ""
 
-aws_ip_node_list = [
-    "18.139.80.216",
-    "3.0.115.46",
-    "52.74.52.168",
-    "18.177.176.160",
-    "18.182.249.100",
-]
-aws_ip_sync_list = [
-    "3.113.105.33",
-]
-aws_ip_send_list = [
-    "13.251.217.145",
-    "18.176.44.51",
-]
+aws_ip_node_list = []
+aws_ip_sync_list = []
+aws_ip_send_list = []
+
+chain_param_interval = 3000
+chain_param_poolsize = 200000
+chain_param_timeout_gap = 999999
+chain_param_cycles_limit = 630000000
+chain_param_tx_num_limit = 30000
