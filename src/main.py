@@ -10,6 +10,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("step", nargs="*", help="step name to run")
 args = parser.parse_args()
 
+
 def main():
     for i, e in enumerate(args.step):
         print(f"[{i}] step {e}")
@@ -49,12 +50,16 @@ def main():
             muta_pipeline.deploy_binary()
             muta_pipeline.remote_run()
 
+        if e == "telnet_build_binary":
+            telnet.build_binary()
         if e == "telnet_deploy":
             telnet.deploy_binary()
         if e == "telnet_server_kill":
             telnet.remote_kill()
         if e == "telnet_server_run":
             telnet.remote_run()
+        if e == "telnet_monitor":
+            telnet.monitor()
 
         if e == "aws_bash":
             aws_pool.bash()
