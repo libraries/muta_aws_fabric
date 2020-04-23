@@ -89,7 +89,7 @@ def deploy_binary():
 
 def remote_kill():
     aws_pool.make_pool()
-    aws_pool.pool.run("killall -9 muta-chain | true")
+    aws_pool.pool.run(f"cd {convention.remote_path}/muta && kill -2 `cat muta.pid` || true")
 
 
 def remote_run():
@@ -98,4 +98,4 @@ def remote_run():
     for i, e in enumerate(aws_pool.pool):
         print(f"{e.host} start muta-chain")
         e.run(
-            f"cd {convention.remote_path}/muta && (CONFIG=config_{i+1}.toml GENESIS=genesis.toml nohup ./muta-chain >& log < /dev/null &) && sleep 1")
+            f"cd {convention.remote_path}/muta && (CONFIG=config_{i+1}.toml GENESIS=genesis.toml nohup ./muta-chain >& log < /dev/null & echo $! > muta.pid) && sleep 1")
