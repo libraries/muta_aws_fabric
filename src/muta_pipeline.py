@@ -78,13 +78,13 @@ def deploy_binary():
     aws_pool.make_pool()
     with misc.chdir("./bin"):
         misc.call("python3 -m zipfile -c muta.zip muta")
-        remote_kill()
-        aws_pool.pool.run(f"rm -rf muta muta.zip")
+        aws_pool.pool.run(f"rm -rf {convention.remote_path}/muta")
+        aws_pool.pool.run("rm -rf /tmp/muta.zip")
         for e in aws_pool.pool:
             print(f"{e.host} upload muta.zip")
-            e.put("muta.zip", "muta.zip")
-    aws_pool.pool.run("python3 -m zipfile -e muta.zip .")
-    aws_pool.pool.run("cd muta && chmod +x muta-chain && chmod +x muta-keypair")
+            e.put("muta.zip", "/tmp/muta.zip")
+    aws_pool.pool.run(f"python3 -m zipfile -e /tmp/muta.zip {convention.remote_path}")
+    aws_pool.pool.run(f"cd {convention.remote_path}/muta && chmod +x muta-chain && chmod +x muta-keypair")
 
 
 def remote_kill():
@@ -94,9 +94,8 @@ def remote_kill():
 
 def remote_run():
     aws_pool.make_pool()
-    remote_kill()
     aws_pool.pool.run(f"rm -rf {convention.chain_param_data_path}")
     for i, e in enumerate(aws_pool.pool):
         print(f"{e.host} start muta-chain")
         e.run(
-            f"cd muta && (CONFIG=config_{i+1}.toml GENESIS=genesis.toml nohup ./muta-chain >& log < /dev/null &) && sleep 1")
+            f"cd {convention.remote_path}/muta && (CONFIG=config_{i+1}.toml GENESIS=genesis.toml nohup ./muta-chain >& log < /dev/null &) && sleep 1")

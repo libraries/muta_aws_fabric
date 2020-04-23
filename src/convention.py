@@ -27,10 +27,11 @@ chain_param_p2p_port = conf["chain_param_p2p_port"]
 chain_param_data_path = conf["chain_param_data_path"]
 chain_param_logs_path = os.path.join(chain_param_data_path, "logs")
 
-
 dockerhub_username = "mutadev"
 
 muta_path = conf["muta_repo_path"]
+remote_path = conf["remote_path"]
+
 muta_genesis_template_path = os.path.join(muta_path, "devtools", "chain", "genesis.toml")
 muta_config_template_path = os.path.join(muta_path, "devtools", "chain", "config.toml")
 
