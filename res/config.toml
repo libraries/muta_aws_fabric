@@ -5,8 +5,13 @@ aws_ip_node_list = []
 aws_ip_sync_list = []
 aws_ip_send_list = []
 
+muta_repo_path = "/src/muta"
+
 chain_param_interval = 3000
 chain_param_poolsize = 200000
 chain_param_timeout_gap = 999999
 chain_param_cycles_limit = 630000000
 chain_param_tx_num_limit = 30000
+chain_param_api_port = 8000
+chain_param_p2p_port = 1337
+chain_param_data_path = "/tmp/muta"

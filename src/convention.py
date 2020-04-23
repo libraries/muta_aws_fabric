@@ -22,15 +22,15 @@ chain_param_poolsize = conf["chain_param_poolsize"]
 chain_param_timeout_gap = conf["chain_param_timeout_gap"]
 chain_param_cycles_limit = conf["chain_param_cycles_limit"]
 chain_param_tx_num_limit = conf["chain_param_tx_num_limit"]
-chain_param_api_port = 8000
-chain_param_p2p_port = 1337
-chain_param_data_path = "/home/ubuntu/muta/data"
+chain_param_api_port = conf["chain_param_api_port"]
+chain_param_p2p_port = conf["chain_param_p2p_port"]
+chain_param_data_path = conf["chain_param_data_path"]
 chain_param_logs_path = os.path.join(chain_param_data_path, "logs")
 
 
 dockerhub_username = "mutadev"
 
-muta_path = "/src/muta"
+muta_path = conf["muta_repo_path"]
 muta_genesis_template_path = os.path.join(muta_path, "devtools", "chain", "genesis.toml")
 muta_config_template_path = os.path.join(muta_path, "devtools", "chain", "config.toml")
 
