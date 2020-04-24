@@ -10,7 +10,7 @@ import misc
 
 
 def build_binary():
-    os.makedirs('./bin/telnet')
+    os.makedirs('./bin/telnet', exist_ok=True)
     with misc.chdir('./telnet'):
         misc.call('go build -o ../bin/telnet/ github.com/libraries/muta_aws_fabric/telnet/cmd/server')
         misc.call('go build -o ../bin/telnet/ github.com/libraries/muta_aws_fabric/telnet/cmd/client')

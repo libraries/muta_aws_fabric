@@ -6,7 +6,7 @@ const request = require("request-promise-native");
 const child_process = require("child_process");
 
 const { args } = program
-    .option("-c --config [config]", "config", "../../res/config.toml")
+    .option("-c --config [config]", "config", "../../bin/develop/config.toml")
     .option("-d --duration [duration]", "number of second", 300)
     .parse(process.argv);
 
@@ -41,7 +41,7 @@ async function main() {
             } catch (err) {
                 console.log(err);
             }
-            const stdout = child_process.execSync(`ssh -o "StrictHostKeyChecking no" -i ../../res/id_rsa ubuntu@${host} "free -h | head -n 2 | tail -n 1"`)
+            const stdout = child_process.execSync(`ssh -o "StrictHostKeyChecking no" -i ../../bin/develop/id_rsa ubuntu@${host} "free -h | head -n 2 | tail -n 1"`)
             text = text + " " + String(stdout).split(" ").filter(e => e !== "")[2];
             text = text + "\n";
         }
