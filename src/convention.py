@@ -3,7 +3,11 @@ import os
 
 import toml
 
-with open("./bin/develop/config.toml", "r") as f:
+c_config_path = "./bin/develop/config.toml"
+if os.environ.get('CONFIG'):
+    c_config_path = os.environ['CONFIG']
+
+with open(c_config_path, "r") as f:
     conf = toml.load(f)
 
 a = json.dumps(conf, indent=4)
