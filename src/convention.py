@@ -29,6 +29,7 @@ chain_param_tx_num_limit = conf["chain_param_tx_num_limit"]
 chain_param_api_port = conf["chain_param_api_port"]
 chain_param_p2p_port = conf["chain_param_p2p_port"]
 chain_param_data_path = conf["chain_param_data_path"]
+chain_param_rocksdb_max_openfile = conf["chain_param_rocksdb_max_openfile"]
 chain_param_logs_path = os.path.join(chain_param_data_path, "logs")
 
 dockerhub_username = "mutadev"
