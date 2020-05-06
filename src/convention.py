@@ -3,7 +3,11 @@ import os
 
 import toml
 
-with open("./bin/develop/config.toml", "r") as f:
+c_config_path = "./bin/develop/config.toml"
+if os.environ.get('CONFIG'):
+    c_config_path = os.environ['CONFIG']
+
+with open(c_config_path, "r") as f:
     conf = toml.load(f)
 
 a = json.dumps(conf, indent=4)
@@ -25,6 +29,7 @@ chain_param_tx_num_limit = conf["chain_param_tx_num_limit"]
 chain_param_api_port = conf["chain_param_api_port"]
 chain_param_p2p_port = conf["chain_param_p2p_port"]
 chain_param_data_path = conf["chain_param_data_path"]
+chain_param_rocksdb_max_openfile = conf["chain_param_rocksdb_max_openfile"]
 chain_param_logs_path = os.path.join(chain_param_data_path, "logs")
 
 dockerhub_username = "mutadev"

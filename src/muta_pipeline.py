@@ -65,6 +65,7 @@ def build_config():
         node_config["network"]["listening_address"] = "0.0.0.0:" + str(convention.chain_param_p2p_port)
         node_config["logger"]["log_path"] = convention.chain_param_logs_path
         node_config["mempool"]["pool_size"] = convention.chain_param_poolsize
+        node_config["rocksdb"]["max_open_files"] = convention.chain_param_rocksdb_max_openfile
         node_config["network"]["bootstraps"] = [{
             "pubkey": keypair_list["keypairs"][0]["public_key"],
             "address": convention.aws_ip_node_list[0] + ":" + str(convention.chain_param_p2p_port),
