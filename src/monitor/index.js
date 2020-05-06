@@ -6,7 +6,7 @@ const request = require("request-promise-native");
 const child_process = require("child_process");
 
 const { args } = program
-    .option("-c --config [config]", "config", "../../bin/develop/config.toml")
+    .option("-c --config [config]", "config", process.env.CONFIG)
     .option("-d --duration [duration]", "number of second", 300)
     .parse(process.argv);
 
