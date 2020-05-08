@@ -30,7 +30,7 @@ async function warn(text) {
 
 async function main() {
     const func = async () => {
-        let text = "--- AWS Test ---\r\n"
+        let text = `--- ${opts.config} ---\r\n`
         for await (const host of conf.aws_ip_node_list.concat(conf.aws_ip_sync_list)) {
             var sdk = new mutasdk.Muta({
                 endpoint: "http://" + host + ":8000" + '/graphql',

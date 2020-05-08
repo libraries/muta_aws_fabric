@@ -2,6 +2,8 @@
 
 # Usage
 
+First, initial the environment:
+
 ```sh
 $ mkdir -p ./bin/develop
 $ cp ./res/config.toml ./bin/develop
@@ -10,17 +12,20 @@ $ cp xxx/id_rsa.pub ./bin/develop
 ```
 
 ```sh
-# deploy muta in one line
+# clone the muta repo, switch to your branch or commit at /src
+$ git clone https://github.com/nervosnetwork/muta.git
+$ vim ./bin/develop/config.toml # replace the muta path in config file
+
+$ export CONFIG=./bin/develop/config.toml
+# deploy muta in one line. If execute this command twice, the previous chain will be free.
 $ py src/main.py muta
-
-# deploy huobi-chain in one line
-$ py src/main.py huobi
-
-# deploy telnet in one line
-$ py src/main.py telnet_deploy telnet_server_run
+# stop the chain
+$ py src/main.py muta_remote_kill
 ```
 
 # FD
+
+Tips for how to set file descriptions.
 
 ```sh
 $ sudo bash -c 'echo -n "fs.file-max = 65535" >> /etc/sysctl.conf'
