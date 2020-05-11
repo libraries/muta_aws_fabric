@@ -70,6 +70,10 @@ def build_config():
             "pubkey": keypair_list["keypairs"][0]["public_key"],
             "address": convention.aws_ip_node_list[0] + ":" + str(convention.chain_param_p2p_port),
         }]
+        node_config["apm"] = {}
+        node_config["apm"]["service_name"] = f'muta_{i+1}'
+        node_config["apm"]["tracing_address"] = convention.chain_param_apm_tracing_address
+        node_config["apm"]["tracing_batch_size"] = convention.chain_param_apm_tracing_batch_size
 
         with open(f"./bin/muta/config_{i+1}.toml", "w") as f:
             toml.dump(node_config, f)

@@ -30,6 +30,9 @@ chain_param_api_port = conf["chain_param_api_port"]
 chain_param_p2p_port = conf["chain_param_p2p_port"]
 chain_param_data_path = conf["chain_param_data_path"]
 chain_param_rocksdb_max_openfile = conf["chain_param_rocksdb_max_openfile"]
+chain_param_apm_service_name = conf["chain_param_apm_service_name"]
+chain_param_apm_tracing_address = conf["chain_param_apm_tracing_address"]
+chain_param_apm_tracing_batch_size = conf["chain_param_apm_tracing_batch_size"]
 chain_param_logs_path = os.path.join(chain_param_data_path, "logs")
 
 dockerhub_username = "mutadev"
