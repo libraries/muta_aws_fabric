@@ -23,6 +23,23 @@ $ py src/main.py muta
 $ py src/main.py muta_remote_kill
 ```
 
+command `muta` is an aggregated command, it will execute a subcommand (you can execute it separately):
+
+- `muta_build_binary`
+- `muta_build_config`
+- `muta_deploy_binary`
+- `muta_remote_run`
+
+You can also use the `muta_remote_kill` command to kill all muta processes.
+
+For easy machine management, there is a powerful command `aws_bash`, it will execute every command you input to every machine:
+
+```sh
+$ py src/main.py aws_bash
+# install curl on all boxes
+> apt install -y curl
+```
+
 # FD
 
 Tips for how to set file descriptions.
