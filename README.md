@@ -40,6 +40,17 @@ $ py src/main.py aws_bash
 > apt install -y curl
 ```
 
+# Telnet: network infomation between nodes
+
+```sh
+$ py src/main.py telnet_build_binary
+$ py src/main.py telnet_deploy
+$ py src/main.py telnet_server_run
+$ py src/main.py telnet_monitor
+```
+
+The script will print the speed and delay between any two nodes.
+
 # FD
 
 Tips for how to set file descriptions.
