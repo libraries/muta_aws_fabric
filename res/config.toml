@@ -6,6 +6,7 @@ aws_ip_sync_list = []
 aws_ip_send_list = []
 
 muta_repo_path = "/src/muta"
+huobi_repo_path = "/src/huobi_path"
 remote_path = "/home/ubuntu"
 
 chain_param_interval = 3000
