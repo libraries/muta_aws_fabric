@@ -43,6 +43,6 @@ remote_path = conf["remote_path"]
 muta_genesis_template_path = os.path.join(muta_path, "devtools", "chain", "genesis.toml")
 muta_config_template_path = os.path.join(muta_path, "devtools", "chain", "config.toml")
 
-huobi_path = "/src/huobi-chain"
+huobi_path = conf["huobi_repo_path"]
 huobi_genesis_template_path = os.path.join(huobi_path, "config", "genesis.toml")
 huobi_config_template_path = os.path.join(huobi_path, "config", "chain.toml")
