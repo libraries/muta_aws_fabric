@@ -13,13 +13,13 @@ import misc
 def build_binary():
     with misc.chdir(convention.huobi_path):
         misc.call("unset ROCKSDB_LIB_DIR && cargo build --release")
-        with misc.chdir("./devtools/keypair"):
-            misc.call("cargo build --release")
+    with misc.chdir(os.path.join(convention.muta_path, "./devtools/keypair")):
+        misc.call("cargo build --release")
 
     misc.call("rm -rf ./bin/huobi")
     misc.call("mkdir -p ./bin/huobi")
 
-    a = os.path.join(convention.huobi_path, "target/release/muta-keypair")
+    a = os.path.join(convention.muta_path, "target/release/muta-keypair")
     misc.call(f"cp {a} ./bin/huobi")
     a = os.path.join(convention.huobi_path, "target/release/huobi-chain")
     misc.call(f"cp {a} ./bin/huobi")
@@ -65,6 +65,7 @@ def build_config():
         node_config["network"]["listening_address"] = "0.0.0.0:" + str(convention.chain_param_p2p_port)
         node_config["logger"]["log_path"] = convention.chain_param_logs_path
         node_config["mempool"]["pool_size"] = convention.chain_param_poolsize
+        node_config["rocksdb"] = {}
         node_config["rocksdb"]["max_open_files"] = convention.chain_param_rocksdb_max_openfile
         node_config["network"]["bootstraps"] = [{
             "pubkey": keypair_list["keypairs"][0]["public_key"],
